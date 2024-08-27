@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elías J. Lemus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --dark-gray: #1a1a1a;
+            --mint-green: #98ff98;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+            background: linear-gradient(135deg, 
+                #000033, #000066, #0000aa, #4444ff,
+                #006aff,
+                #4b0082, #6a0dad, #8b008b,
+                #ff8c00, #ffa500, #ff7f50,
+                #ff4500, #ff6347,
+                #ff0000, #8b0000, #4b0000);
+            background-size: 1000% 1000%;
+            animation: gradientBG 30s ease infinite;
+            transition: background 0.3s ease;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding-top: 80px;
+        }
+        .profile-image-container {
+            width: 250px;
+            height: 250px;
+            perspective: 1000px;
+            margin-right: 2rem;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .profile-image-container:hover {
+            transform: scale(1.05);
+        }
+        .profile-image-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .subtitle {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .subtitle .icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid white;
+            padding-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        p, ul {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .section {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .section:hover::before {
+            animation: slide 1.5s infinite;
+        }
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .progress-bar {
+            background-color: rgba(255, 255, 255, 0.2);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .progress {
+            background: linear-gradient(to right, #03a9f4, #00ff00);
+            height: 100%;
+            width: 0;
+            transition: width 2s ease-in-out;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 5px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--dark-gray);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        .nav-bar.hidden {
+            transform: translateY(-100%);
+        }
+        .nav-bar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .nav-bar li {
+            margin: 0 0.5rem;
+            position: relative;
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        .nav-bar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .nav-bar a:hover::after, .nav-bar a.active::after {
+            width: 100%;
+            left: 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 0.3rem 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 0.8rem;
+        }
+        .blur {
+            filter: blur(3px);
+            transition: filter 0.3s ease;
+        }
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile-image-container {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            p, ul {
+                font-size: 0.9rem;
+            }
+            .nav-bar {
+                padding: 0.5rem 0;
+            }
+            .nav-bar ul {
+                flex-wrap: wrap;
+            }
+            .nav-bar li {
+                margin: 0.25rem;
+            }
+            .nav-bar a {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar" id="navbar">
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">Skills & Interests</a></li>
+            <li><a href="#projects">Featured Projects</a></li>
+            <li><a href="#goals">Professional Goals</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header class="header" id="top">
+            <div class="profile-image-container">
+                <div class="profile-image-inner">
+                    <img src="PROFILE PICTURE.jpeg" alt="Elías J. Lemus" class="profile-image">
+                </div>
+            </div>
+            <div>
+                <h1>Elías J. Lemus</h1>
+                <p class="subtitle"><span class="icon">📍</span>San Pedro Sula, Honduras 🇭🇳 | June 20, 2001</p>
+                <p class="subtitle"><span class="icon">💻</span>Systems Engineering Student | Universidad Nacional Autónoma de Honduras</p>
+                <p class="subtitle"><span class="icon">📊</span>Aspiring Project Manager</p>
+            </div>
+        </header>
+
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a keen interest in technology and its applications in project management. My journey in tech is driven by a desire to innovate and create solutions that make a difference.</p>
+            <p>I'm particularly interested in exploring how technology and culinary arts can intersect to positively impact customer experiences. My goal is to leverage technological innovations to enhance and revolutionize the gastronomy industry.</p>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>Skills & Interests</h2>
+            <ul>
+                <li>Project Management</li>
+                <li>Operating Systems</li>
+                <li>Programming Languages</li>
+                <li>Information Systems</li>
+                <li>Business Administration</li>
+            </ul>
+            <h3>Academic Progress</h3>
+            <div class="progress-bar">
+                <div class="progress" data-percent="59%"></div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Featured Projects</h2>
+            <div>
+                <h3>Event Organizer Application</h3>
+                <p>A comprehensive platform for event planning and management, showcasing my skills in user interface design and database integration.</p>
+            </div>
+            <div>
+                <h3>Technical Service Management System</h3>
+                <p>An efficient system for tracking repairs, managing inventory, and enhancing customer communication in technical service environments.</p>
+            </div>
+        </section>
+
+        <section id="goals" class="section">
+            <h2>Professional Goals</h2>
+            <p>My ambition is to become a leader in project management within the tech sector, bridging the gap between technical expertise and business strategy. I aim to:</p>
+            <ul>
+                <li>Develop innovative software solutions for real-world problems</li>
+                <li>Gain expertise in emerging technologies and their business applications</li>
+                <li>Lead cross-functional teams in delivering high-impact tech projects</li>
+                <li>Explore and implement ways to blend technology with culinary arts to enhance customer experiences in the gastronomy industry</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>Copyright © 2024 Elías J. Lemus. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let progressFilled = false;
+
+        function animateProgress() {
+            const progress = document.querySelector('.progress');
+            let width = 0;
+            const targetWidth = 59; // 59% of the total width
+            progress.style.display = 'flex';
+            const interval = setInterval(() => {
+                if (width >= targetWidth) {
+                    clearInterval(interval);
+                    progressFilled = true;
+                } else {
+                    width++;
+                    progress.style.width = width + '%';
+                    progress.textContent = Math.round(width) + '%';
+                }
+            }, 30); // Adjusted for smoother animation
+        }
+
+        function resetProgress() {
+            if (!progressFilled) {
+                const progress = document.querySelector('.progress');
+                progress.style.width = '0%';
+                progress.textContent = '';
+                progress.style.display = 'none';
+            }
+        }
+
+        const profileImage = document.querySelector('.profile-image-inner');
+
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+
+        function handleOrientation(event) {
+            const x = event.beta;
+            const y = event.gamma;
+            if (x > 90) { x = 90; }
+            if (x < -90) { x = -90; }
+            const xRange = x + 90;
+            const yRange = y + 90;
+            const tiltX = (yRange - 90) / 90 * 15;
+            const tiltY = (xRange - 90) / 90 * -15;
+            profileImage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        }
+
+        const navbar = document.getElementById('navbar');
+        let lastScrollTop = 0;
+        const navbarHeight = navbar.offsetHeight;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
+                navbar.classList.add('hidden');
+            } else if (scrollTop <= 0) {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        const navLinks = navbar.getElementsByTagName('a');
+        const sections = document.querySelectorAll('.section');
+
+        function setActiveLink() {
+            const scrollPosition = window.scrollY;
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - navbarHeight - 10;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    const id = section.getAttribute('id');
+                    Array.from(navLinks).forEach((link) => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - navbarHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        sections.forEach(section => {
+            section.addEventListener('click', function() {
+                sections.forEach(s => {
+                    if (s !== this) {
+                        s.classList.add('blur');
+                    } else {
+                        s.classList.remove('blur');
+                        if (s.id === 'skills' && !progressFilled) {
+                            animateProgress();
+                        }
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.section')) {
+                sections.forEach(s => s.classList.remove('blur'));
+            }
+        });
+
+        window.addEventListener('load', () => {
+            resetProgress();
+        });
+    </script>
+</body>
+</html>
