@@ -261,35 +261,20 @@
             }
         }
 
-        /* New styles for better responsiveness */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .header {
-                padding-top: 40px;
+        /* Ensure consistent font sizes across orientations */
+        @media (orientation: landscape) {
+            body {
+                font-size: 16px;
             }
-            .profile-image-container {
-                width: 150px;
-                height: 150px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .subtitle {
-                font-size: 0.9rem !important;
-            }
-            .section {
-                padding: 1rem;
+            .subtitle, p, ul {
+                font-size: 1rem !important;
             }
         }
 
+        /* Additional styles for better responsiveness */
         @media (max-width: 480px) {
             .container {
                 padding: 1rem;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .subtitle {
-                font-size: 0.9rem !important;
             }
             .profile-image-container {
                 width: 200px;
@@ -568,7 +553,16 @@
                         }
                     }
                 });
+                
+                // Add this to remove blur when touching outside sections
+                document.addEventListener('touchstart', removeBlur, { once: true });
             } else {
+                sections.forEach(s => s.classList.remove('blur'));
+            }
+        }
+
+        function removeBlur(e) {
+            if (!e.target.closest('.section')) {
                 sections.forEach(s => s.classList.remove('blur'));
             }
         }
@@ -584,13 +578,11 @@
             } else {
                 document.body.classList.remove('landscape');
             }
+            updateLayout();
         }
 
         // Listen for orientation changes
         window.addEventListener('orientationchange', handleOrientationChange);
-
-        // Initial check for orientation
-        handleOrientationChange();
 
         // Function to update layout based on screen size and orientation
         function updateLayout() {
@@ -604,18 +596,18 @@
                 document.body.classList.remove('compact-layout');
             }
 
-            // Adjust font sizes if necessary
-            if (width <= 480) {
-                document.documentElement.style.fontSize = '14px';
-            } else {
-                document.documentElement.style.fontSize = '16px';
-            }
+            // Ensure consistent font sizes
+            document.body.style.fontSize = '16px';
+            document.querySelectorAll('.subtitle, p, ul').forEach(el => {
+                el.style.fontSize = '1rem';
+            });
         }
 
         // Listen for resize events
         window.addEventListener('resize', updateLayout);
 
-        // Initial layout update
+        // Initial calls
+        handleOrientationChange();
         updateLayout();
     </script>
 </body>
