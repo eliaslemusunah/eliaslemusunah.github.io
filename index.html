@@ -289,8 +289,7 @@
 
         <section id="about" class="section">
             <h2>About Me</h2>
-            <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a keen interest in technology and its applications in project management. My journey in tech is driven by a desire to innovate and create solutions that make a difference.</p>
-            <p>With a strong foundation as a Professional Technical Bachelor in Computer Science, I entered my university career well-prepared and eager to expand my knowledge in the field of technology.</p>
+            <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a strong foundation as a Professional Technical Bachelor in Computer Science. My journey in tech is driven by a desire to innovate and create solutions that make a difference, and I entered my university career well-prepared and eager to expand my knowledge in the field of technology.</p>
             <p>I have a strong appreciation for visual design and a deep commitment to ensuring that everything functions correctly and efficiently. I value order and strive to create well-organized and aesthetically pleasing solutions in all my projects.</p>
         </section>
 
@@ -400,12 +399,13 @@
                 if (width >= targetWidth) {
                     clearInterval(interval);
                     progressFilled = true;
+                    progress.textContent = '59%'; // Ensure it shows exactly 59% at the end
                 } else {
-                    width += 2; // Increase by 2 for faster animation
+                    width++;
                     progress.style.width = width + '%';
                     progress.textContent = Math.round(width) + '%';
                 }
-            }, 20); // Reduced interval for smoother animation
+            }, 20); // Adjusted for smoother animation
         }
 
         function resetProgress() {
