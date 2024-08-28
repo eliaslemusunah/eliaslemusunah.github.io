@@ -311,8 +311,8 @@
         <section id="projects" class="section">
             <h2>Featured Projects</h2>
             <div>
-                <h3>Windows Server 2012 R2 Domain Configuration (Sistemas Operativos I)</h3>
-                <p>Explored the functionality of Windows Server 2012 R2 by configuring a complete domain service environment. The project involved:</p>
+                <h3>Windows Server 2012 R2 Domain Configuration (Operating Systems I)</h3>
+                <p>I explored the functionality of Windows Server 2012 R2 by configuring a complete domain service environment. The project involved:</p>
                 <ul>
                     <li>Setting up a domain service for a simulated company environment</li>
                     <li>Configuring DNS and connecting a Windows 7 Professional computer to the server's network</li>
@@ -320,20 +320,22 @@
                     <li>Developing and hosting a custom HTML webpage using Internet Information Services (IIS), made accessible via www.itsme.com</li>
                     <li>Utilizing key administrative tools such as Active Directory Domain Services (AD DS), Domain Name System (DNS), Dynamic Host Configuration Protocol (DHCP), and Internet Information Services (IIS)</li>
                 </ul>
+                <p>This project demonstrated my ability to configure and manage complex server environments, showcasing skills in network administration, user management, and web hosting within a Windows Server ecosystem.</p>
             </div>
             <div>
-                <h3>Event Organizer Application (Lenguajes de Programación)</h3>
-                <p>Developed a comprehensive mobile application using Flutter and Firebase, designed to streamline event planning and management. Key features include:</p>
+                <h3>Event Organizer Application (Programming Languages)</h3>
+                <p>I developed a comprehensive mobile application using Flutter and Firebase, designed to streamline event planning and management. Key features include:</p>
                 <ul>
                     <li>Intuitive event creation and management interface</li>
                     <li>Seamless calendar integration for efficient event tracking</li>
                     <li>Robust guest list management functionality</li>
                     <li>Detailed user expense tracking for improved budget control</li>
                 </ul>
+                <p>This project showcased my proficiency in mobile app development, database integration, and user-centered design, resulting in a practical tool for event organization and financial management.</p>
             </div>
             <div>
-                <h3>Technical Service Management System (Base de Datos II)</h3>
-                <p>Engineered an efficient system for a technical support company using SQL Server and C# with Visual Studio. The system comprehensively manages:</p>
+                <h3>Technical Service Management System (Database II)</h3>
+                <p>We engineered an efficient system for a technical support company using SQL Server and C# with Visual Studio. The system comprehensively manages:</p>
                 <ul>
                     <li>Client contracts and diverse service packages</li>
                     <li>Dynamic technician assignments based on client needs and real-time technician availability</li>
@@ -341,16 +343,16 @@
                     <li>Complex financial transactions including monthly billing, package subscriptions, and itemized service charges</li>
                     <li>Company bank accounts, meticulously tracking income from invoices and various expenses such as purchases and payroll</li>
                 </ul>
-                <p>The project showcased advanced database design skills, including the creation of a robust database structure and implementation of stored procedures for CRUD operations across all tables, incorporating sophisticated auto-numbering calculations where necessary.</p>
+                <p>Our project showcased advanced database design skills, including the creation of a robust database structure and implementation of stored procedures for CRUD operations across all tables, incorporating sophisticated auto-numbering calculations where necessary.</p>
             </div>
             <div>
-                <h3>Hotel Information Systems Analysis and Recommendation (Sistemas de Información)</h3>
-                <p>Conducted a comprehensive analysis and implementation plan for Hotel Nacional S.A., focusing on enhancing their existing ERP system (Skills4IT) with a complementary CRM solution. The project encompassed:</p>
+                <h3>Hotel Information Systems Analysis and Recommendation (Information Systems)</h3>
+                <p>We conducted a comprehensive analysis and implementation plan for Hotel Nacional S.A., focusing on enhancing their existing ERP system (Skill4IT) with a complementary CRM solution. Our project encompassed:</p>
                 <ul>
                     <li>Thorough evaluation of the hotel's current information systems, identifying strengths and areas for improvement</li>
-                    <li>In-depth analysis of various information system types (ERP, CRM, SCM) to determine the most suitable solution for the hotel's specific needs</li>
-                    <li>Recommendation of Salesforce Service Cloud as a complementary CRM system to work alongside the existing Skills4IT ERP</li>
-                    <li>Development of a detailed implementation plan for integrating Salesforce Service Cloud with Skills4IT, including:</li>
+                    <li>In-depth analysis of various information system types (ERP, CRM, SCM, KWS, LMS) to determine the most suitable solution for the hotel's specific needs</li>
+                    <li>Recommendation of Salesforce Service Cloud as a complementary CRM system to work alongside the existing Skill4IT ERP</li>
+                    <li>Development of a detailed implementation plan for integrating Salesforce Service Cloud with Skill4IT, including:</li>
                     <ul>
                         <li>Phased deployment strategy to minimize operational disruptions</li>
                         <li>Comprehensive employee training programs</li>
@@ -361,7 +363,7 @@
                     </ul>
                     <li>Post-implementation evaluation and continuous improvement strategies</li>
                 </ul>
-                <p>This project demonstrated the ability to analyze complex business needs, recommend appropriate technological solutions, and create a comprehensive plan for successful implementation and integration of information systems in a real-world business environment.</p>
+                <p>This project demonstrated our ability to analyze complex business needs, recommend appropriate technological solutions, and create a comprehensive plan for successful implementation and integration of information systems in a real-world business environment.</p>
             </div>
         </section>
         
@@ -484,16 +486,21 @@
 
         sections.forEach(section => {
             section.addEventListener('mouseover', function() {
-                if (this.id === 'skills' && !progressFilled) {
-                    animateProgress();
-                }
+                sections.forEach(s => {
+                    if (s !== this) {
+                        s.classList.add('blur');
+                    } else {
+                        s.classList.remove('blur');
+                        if (s.id === 'skills' && !progressFilled) {
+                            animateProgress();
+                        }
+                    }
+                });
             });
-        });
 
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.section')) {
+            section.addEventListener('mouseout', function() {
                 sections.forEach(s => s.classList.remove('blur'));
-            }
+            });
         });
 
         window.addEventListener('load', () => {
