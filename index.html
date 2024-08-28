@@ -291,7 +291,7 @@
             <h2>About Me</h2>
             <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a foundation as a Professional Technical Bachelor in Computer Science, which I completed on December 6, 2019. This background has provided me with a starting point for my university studies, where I'm eager to expand my knowledge in the field of technology.</p>
             <p>My journey in tech is driven by a curiosity to explore how technology can solve real-world problems and improve people's lives. I have a keen eye for visual design and enjoy creating solutions that are not only functional but also aesthetically pleasing. In all my projects, I strive for clean, well-organized code and intuitive user interfaces, believing that the clarity of the code and the attractiveness of the design are equally important.</p>
-            <p>I'm always looking to learn and grow, tackling new challenges with enthusiasm and an open mind. While I have a strong foundation, I recognize that there's always more to learn in the ever-evolving world of technology.</p>
+            <p>I'm always looking to learn and grow, tackling new challenges with enthusiasm and an open mind. While I have a foundation, I recognize that there's always more to learn in the ever-evolving world of technology.</p>
         </section>
 
         <section id="skills" class="section">
@@ -366,7 +366,7 @@
         
         <section id="goals" class="section">
             <h2>Professional Goals</h2>
-            <p>As I continue my journey in Systems Engineering, I'm drawn to project management. My interest stems from a desire to work closely with people, facilitating collaboration and helping team members excel in their roles.</p>
+            <p>As I continue my journey in Systems Engineering, I'm drawn to project management. My interest stems from the observation that when work is distributed in a way that allows people to feel comfortable and enjoy what they do, success is often achieved. This approach also allows for identifying weaknesses or potential in the work being carried out.</p>
             <p>Currently, I'm focused on:</p>
             <ul>
                 <li>Deepening my understanding of various aspects of technology</li>
@@ -374,7 +374,7 @@
                 <li>Honing my skills in team leadership and communication</li>
                 <li>Exploring emerging technologies to improve business processes and user experiences</li>
             </ul>
-            <p>Looking ahead, I aim to combine my passion for technology with my family's culinary traditions, envisioning a tech-driven restaurant that serves my mother's delicious recipes while leveraging technology to enhance customer experience and streamline operations.</p>
+            <p>Looking ahead, I aim to combine my passion for technology with culinary traditions, envisioning a tech-driven restaurant that serves delicious recipes while leveraging technology to enhance customer experience and streamline operations.</p>
         </section>
     </div>
 
@@ -540,6 +540,20 @@
         window.addEventListener('load', () => {
             resetProgress();
         });
+
+        // Fix for horizontal orientation issues
+        window.addEventListener('resize', () => {
+            if (window.orientation === 90 || window.orientation === -90) {
+                document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
+            } else {
+                document.querySelector('.subtitle:last-child').style.fontSize = '';
+            }
+        });
+
+        // Initial check for orientation
+        if (window.orientation === 90 || window.orientation === -90) {
+            document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
+        }
     </script>
 </body>
 </html>
