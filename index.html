@@ -158,7 +158,7 @@
             background: linear-gradient(to right, #03a9f4, #00ff00);
             height: 100%;
             width: 0;
-            transition: width 2s ease-in-out;
+            transition: width 1s ease-in-out;
             position: relative;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -281,7 +281,7 @@
             </div>
             <div>
                 <h1>Elías J. Lemus</h1>
-                <p class="subtitle"><span class="icon">📍</span>Choloma, Honduras | Nacimiento San Pedro Sula, Honduras; 20 de junio de 2001</p>
+                <p class="subtitle"><span class="icon">📍</span>Choloma, Honduras | Born in San Pedro Sula, Honduras; June 20, 2001</p>
                 <p class="subtitle"><span class="icon">💻</span>Systems Engineering Student | Universidad Nacional Autónoma de Honduras</p>
                 <p class="subtitle"><span class="icon">📊</span>Aspiring Project Manager</p>
             </div>
@@ -290,6 +290,7 @@
         <section id="about" class="section">
             <h2>About Me</h2>
             <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a keen interest in technology and its applications in project management. My journey in tech is driven by a desire to innovate and create solutions that make a difference.</p>
+            <p>With a strong foundation as a Professional Technical Bachelor in Computer Science, I entered my university career well-prepared and eager to expand my knowledge in the field of technology.</p>
             <p>I have a strong appreciation for visual design and a deep commitment to ensuring that everything functions correctly and efficiently. I value order and strive to create well-organized and aesthetically pleasing solutions in all my projects.</p>
         </section>
 
@@ -379,7 +380,6 @@
                 <li>Gaining expertise in emerging technologies and their business applications</li>
                 <li>Preparing to lead cross-functional teams in delivering high-impact tech projects</li>
             </ul>
-            <p>My educational background as a Professional Technical Bachelor in Computer Science has provided me with a strong foundation before entering my university career.</p>
             <p>As a long-term goal, I dream of combining my technological expertise with my passion for culinary arts. In the future, I aspire to leverage technological innovations to enhance and revolutionize the gastronomy industry, potentially by opening my own technologically advanced restaurant.</p>
         </section>
     </div>
@@ -401,11 +401,11 @@
                     clearInterval(interval);
                     progressFilled = true;
                 } else {
-                    width++;
+                    width += 2; // Increase by 2 for faster animation
                     progress.style.width = width + '%';
                     progress.textContent = Math.round(width) + '%';
                 }
-            }, 30); // Adjusted for smoother animation
+            }, 20); // Reduced interval for smoother animation
         }
 
         function resetProgress() {
