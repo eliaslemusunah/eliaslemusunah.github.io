@@ -25,22 +25,30 @@
                 #ff8c00, #f2b84e, #ff7f50,
                 #ff4500, #ff6347,
                 #ff0000, #8b0000, #4b0000);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-size: 1000% 1000%;
+            animation: gradientBG 30s ease infinite;
+            transition: background 0.3s ease;
+            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
         }
         @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
         }
         .header {
             display: flex;
@@ -50,19 +58,29 @@
             padding-top: 80px;
         }
         .profile-image-container {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
+            perspective: 1000px;
             margin-right: 2rem;
             position: relative;
-            overflow: hidden;
-            border-radius: 50%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .profile-image-container:hover {
+            transform: scale(1.05);
+        }
+        .profile-image-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
         .profile-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         h1 {
             font-size: 2.5rem;
@@ -101,14 +119,32 @@
             padding: 1.5rem;
             border-radius: 8px;
             margin-bottom: 2rem;
+            transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .section:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .section:hover::before {
+            animation: slide 1.5s infinite;
+        }
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         .progress-bar {
             background-color: rgba(255, 255, 255, 0.2);
@@ -123,6 +159,8 @@
             height: 100%;
             width: 0;
             transition: width 1s ease-in-out;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -150,10 +188,10 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
         }
         .nav-bar li {
-            margin: 0.5rem;
+            margin: 0 0.5rem;
+            position: relative;
         }
         .nav-bar a {
             color: white;
@@ -162,22 +200,35 @@
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
         }
-        .nav-bar a:hover, .nav-bar a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+        .nav-bar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .nav-bar a:hover::after, .nav-bar a.active::after {
+            width: 100%;
+            left: 0;
         }
         .footer {
             text-align: center;
-            padding: 1rem 0;
+            padding: 0.3rem 0;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             font-size: 0.8rem;
+        }
+        .blur {
+            filter: blur(3px);
+            transition: filter 0.3s ease;
         }
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
                 align-items: center;
-                text-align: center;
             }
             .profile-image-container {
                 margin-right: 0;
@@ -186,20 +237,62 @@
             h1 {
                 font-size: 2rem;
             }
-            .subtitle, p, ul {
-                font-size: 0.9rem;
+            .subtitle {
+                font-size: 1rem !important;
             }
             h2 {
                 font-size: 1.3rem;
             }
+            p, ul {
+                font-size: 0.9rem;
+            }
+            .nav-bar {
+                padding: 0.5rem 0;
+            }
+            .nav-bar ul {
+                flex-wrap: wrap;
+            }
+            .nav-bar li {
+                margin: 0.25rem;
+            }
+            .nav-bar a {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.9rem;
+            }
         }
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem;
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .header {
+                padding-top: 40px;
             }
             .profile-image-container {
                 width: 150px;
                 height: 150px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 0.9rem !important;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 0.9rem !important;
+            }
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
             }
         }
     </style>
@@ -217,7 +310,9 @@
     <div class="container">
         <header class="header" id="top">
             <div class="profile-image-container">
-                <img src="PROFILE PICTURE.jpeg" alt="Elías J. Lemus" class="profile-image">
+                <div class="profile-image-inner">
+                    <img src="PROFILE PICTURE.jpeg" alt="Elías J. Lemus" class="profile-image">
+                </div>
             </div>
             <div>
                 <h1>Elías J. Lemus</h1>
@@ -358,18 +453,20 @@
             if (window.innerWidth > 768) { // Only apply tilt effect on larger screens
                 const x = event.beta;
                 const y = event.gamma;
-                const xRange = Math.min(Math.max(x, -90), 90) + 90;
-                const yRange = Math.min(Math.max(y, -90), 90) + 90;
-                const tiltX = (yRange - 90) / 90 * 15;
-                const tiltY = (xRange - 90) / 90 * -15;
-                profileImage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                if (x !== null && y !== null) {
+                    const xRange = Math.min(Math.max(x, -90), 90) + 90;
+                    const yRange = Math.min(Math.max(y, -90), 90) + 90;
+                    const tiltX = (yRange - 90) / 90 * 15;
+                    const tiltY = (xRange - 90) / 90 * -15;
+                    profileImage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                }
             } else {
                 profileImage.style.transform = 'none';
             }
         }
 
         if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', handleOrientation);
+            window.addEventListener('deviceorientation', handleOrientation, true);
         }
 
         const navbar = document.getElementById('navbar');
@@ -478,6 +575,9 @@
             }
 
             document.body.style.fontSize = width <= 768 ? '14px' : '16px';
+            document.querySelectorAll('.subtitle').forEach(el => {
+                el.style.fontSize = '1rem';
+            });
         }
 
         window.addEventListener('resize', updateLayout);
