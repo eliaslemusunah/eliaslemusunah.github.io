@@ -260,6 +260,42 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* New styles for better responsiveness */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .header {
+                padding-top: 40px;
+            }
+            .profile-image-container {
+                width: 150px;
+                height: 150px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 0.9rem !important;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 0.9rem !important;
+            }
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -541,19 +577,46 @@
             resetProgress();
         });
 
-        // Fix for horizontal orientation issues
-        window.addEventListener('resize', () => {
+        // Function to handle orientation changes
+        function handleOrientationChange() {
             if (window.orientation === 90 || window.orientation === -90) {
-                document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
+                document.body.classList.add('landscape');
             } else {
-                document.querySelector('.subtitle:last-child').style.fontSize = '';
+                document.body.classList.remove('landscape');
             }
-        });
+        }
+
+        // Listen for orientation changes
+        window.addEventListener('orientationchange', handleOrientationChange);
 
         // Initial check for orientation
-        if (window.orientation === 90 || window.orientation === -90) {
-            document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
+        handleOrientationChange();
+
+        // Function to update layout based on screen size and orientation
+        function updateLayout() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const isLandscape = width > height;
+
+            if (isLandscape && height < 500) {
+                document.body.classList.add('compact-layout');
+            } else {
+                document.body.classList.remove('compact-layout');
+            }
+
+            // Adjust font sizes if necessary
+            if (width <= 480) {
+                document.documentElement.style.fontSize = '14px';
+            } else {
+                document.documentElement.style.fontSize = '16px';
+            }
         }
+
+        // Listen for resize events
+        window.addEventListener('resize', updateLayout);
+
+        // Initial layout update
+        updateLayout();
     </script>
 </body>
 </html>
