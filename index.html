@@ -124,7 +124,7 @@
             position: relative;
             overflow: hidden;
         }
-        .section:hover {
+        .section:hover, .section:focus, .section:active {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             background-color: rgba(255, 255, 255, 0.15);
@@ -139,12 +139,8 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: 0.5s;
         }
-        .section:hover::before {
-            animation: slide 1.5s infinite;
-        }
-        @keyframes slide {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .section:hover::before, .section:focus::before, .section:active::before {
+            left: 100%;
         }
         .progress-bar {
             background-color: rgba(255, 255, 255, 0.2);
@@ -188,10 +184,10 @@
             margin: 0;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .nav-bar li {
-            margin: 0 0.5rem;
-            position: relative;
+            margin: 0.25rem 0.5rem;
         }
         .nav-bar a {
             color: white;
@@ -199,24 +195,15 @@
             font-weight: 500;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
+            font-size: 0.9rem;
         }
-        .nav-bar a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        .nav-bar a:hover::after, .nav-bar a.active::after {
-            width: 100%;
-            left: 0;
+        .nav-bar a:hover, .nav-bar a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
         }
         .footer {
             text-align: center;
-            padding: 0.3rem 0;
+            padding: 1rem 0;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             font-size: 0.8rem;
@@ -233,12 +220,16 @@
             .profile-image-container {
                 margin-right: 0;
                 margin-bottom: 1rem;
+                width: 200px;
+                height: 200px;
             }
             h1 {
                 font-size: 2rem;
+                text-align: center;
             }
             .subtitle {
-                font-size: 1rem !important;
+                font-size: 0.9rem !important;
+                justify-content: center;
             }
             h2 {
                 font-size: 1.3rem;
@@ -246,24 +237,14 @@
             p, ul {
                 font-size: 0.9rem;
             }
-            .nav-bar {
-                padding: 0.5rem 0;
-            }
-            .nav-bar ul {
-                flex-wrap: wrap;
-            }
-            .nav-bar li {
-                margin: 0.25rem;
-            }
-            .nav-bar a {
-                padding: 0.25rem 0.5rem;
-                font-size: 0.9rem;
+            .container {
+                padding: 1rem;
             }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             .header {
-                padding-top: 40px;
+                padding-top: 60px;
             }
             .profile-image-container {
                 width: 150px;
@@ -273,26 +254,21 @@
                 font-size: 1.8rem;
             }
             .subtitle {
-                font-size: 0.9rem !important;
+                font-size: 0.8rem !important;
             }
             .section {
                 padding: 1rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem;
+        @media (hover: none) {
+            .section:hover, .section:focus, .section:active {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                background-color: rgba(255, 255, 255, 0.1);
             }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .subtitle {
-                font-size: 0.9rem !important;
-            }
-            .profile-image-container {
-                width: 200px;
-                height: 200px;
+            .section::before {
+                display: none;
             }
         }
     </style>
@@ -375,6 +351,7 @@
                 <p>This project showcased our proficiency in mobile app development, database integration, and user-centered design. We created a practical tool that not only facilitates event organization but also provides comprehensive financial management features, making it a versatile solution for both personal and professional event planning.</p>
             </div>
             <div>
+                <div>
                 <h3>Technical Service Management System (Database II)</h3>
                 <p>We engineered an efficient system for a technical support company using SQL Server and C# with Visual Studio. The system comprehensively manages:</p>
                 <ul>
@@ -559,6 +536,13 @@
                 sections.forEach(s => s.classList.remove('blur'));
                 activeSection = null;
             });
+
+            // Add this to remove blur when touching outside sections
+            document.addEventListener('touchstart', (e) => {
+                if (!e.target.closest('.section')) {
+                    sections.forEach(s => s.classList.remove('blur'));
+                }
+            }, { passive: true });
         }
 
         handleTouchInteraction();
