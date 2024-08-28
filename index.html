@@ -400,19 +400,19 @@
         function animateProgress() {
             const progress = document.querySelector('.progress');
             let width = 0;
-            const targetWidth = 59; // 59% of the total width
+            const targetWidth = 59;
             progress.style.display = 'flex';
             const interval = setInterval(() => {
                 if (width >= targetWidth) {
                     clearInterval(interval);
                     progressFilled = true;
-                    progress.textContent = '59%'; // Ensure it shows exactly 59% at the end
+                    progress.textContent = '59%';
                 } else {
                     width++;
                     progress.style.width = width + '%';
                     progress.textContent = Math.round(width) + '%';
                 }
-            }, 20); // Adjusted for smoother animation
+            }, 20);
         }
 
         function resetProgress() {
@@ -425,27 +425,7 @@
         }
 
         const profileImage = document.querySelector('.profile-image-inner');
-
-        function handleOrientation(event) {
-            if (window.innerWidth > 768) { // Only apply tilt effect on larger screens
-                const x = event.beta;
-                const y = event.gamma;
-                if (x !== null && y !== null) {
-                    const xRange = Math.min(Math.max(x, -90), 90) + 90;
-                    const yRange = Math.min(Math.max(y, -90), 90) + 90;
-                    const tiltX = (yRange - 90) / 90 * 15;
-                    const tiltY = (xRange - 90) / 90 * -15;
-                    profileImage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-                }
-            } else {
-                profileImage.style.transform = 'none';
-            }
-        }
-
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', handleOrientation, true);
-        }
-
+        const sections = document.querySelectorAll('.section');
         const navbar = document.getElementById('navbar');
         let lastScrollTop = 0;
         const navbarHeight = navbar.offsetHeight;
@@ -462,9 +442,6 @@
 
         window.addEventListener('scroll', handleScroll);
 
-        const navLinks = navbar.getElementsByTagName('a');
-        const sections = document.querySelectorAll('.section');
-
         function setActiveLink() {
             const scrollPosition = window.scrollY;
 
@@ -474,7 +451,7 @@
 
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                     const id = section.getAttribute('id');
-                    Array.from(navLinks).forEach((link) => {
+                    document.querySelectorAll('.nav-bar a').forEach((link) => {
                         link.classList.remove('active');
                         if (link.getAttribute('href') === `#${id}`) {
                             link.classList.add('active');
@@ -485,7 +462,6 @@
         }
 
         window.addEventListener('scroll', setActiveLink);
-        setActiveLink();
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -502,50 +478,50 @@
             });
         });
 
-        function handleTouchInteraction() {
-            let touchStartY;
-            let touchStartX;
-            let activeSection = null;
+        let activeSection = null;
+        let touchStartY, touchStartX;
 
-            document.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
-                touchStartX = e.touches[0].clientX;
-                activeSection = e.target.closest('.section');
-                if (activeSection) {
-                    sections.forEach(s => {
-                        if (s !== activeSection) s.classList.add('blur');
-                    });
-                }
-            }, { passive: true });
-
-            document.addEventListener('touchmove', (e) => {
-                if (activeSection) {
-                    const touchEndY = e.touches[0].clientY;
-                    const touchEndX = e.touches[0].clientX;
-                    const deltaY = touchEndY - touchStartY;
-                    const deltaX = touchEndX - touchStartX;
-
-                    if (Math.abs(deltaY) > 10 || Math.abs(deltaX) > 10) {
-                        sections.forEach(s => s.classList.remove('blur'));
-                        activeSection = null;
-                    }
-                }
-            }, { passive: true });
-
-            document.addEventListener('touchend', () => {
-                sections.forEach(s => s.classList.remove('blur'));
-                activeSection = null;
-            });
-
-            // Add this to remove blur when touching outside sections
-            document.addEventListener('touchstart', (e) => {
-                if (!e.target.closest('.section')) {
-                    sections.forEach(s => s.classList.remove('blur'));
-                }
-            }, { passive: true });
+        function handleTouchStart(e) {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+            activeSection = e.target.closest('.section');
+            if (activeSection) {
+                sections.forEach(s => {
+                    if (s !== activeSection) s.classList.add('blur');
+                });
+            }
         }
 
-        handleTouchInteraction();
+        function handleTouchMove(e) {
+            if (!activeSection) return;
+
+            const touchEndY = e.touches[0].clientY;
+            const touchEndX = e.touches[0].clientX;
+            const deltaY = touchEndY - touchStartY;
+            const deltaX = touchEndX - touchStartX;
+
+            if (Math.abs(deltaY) > 10 || Math.abs(deltaX) > 10) {
+                sections.forEach(s => s.classList.remove('blur'));
+                activeSection = null;
+            }
+        }
+
+        function handleTouchEnd() {
+            sections.forEach(s => s.classList.remove('blur'));
+            activeSection = null;
+        }
+
+        sections.forEach(section => {
+            section.addEventListener('touchstart', handleTouchStart, { passive: true });
+            section.addEventListener('touchmove', handleTouchMove, { passive: true });
+            section.addEventListener('touchend', handleTouchEnd, { passive: true });
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('.section')) {
+                sections.forEach(s => s.classList.remove('blur'));
+            }
+        }, { passive: true });
 
         function updateLayout() {
             const width = window.innerWidth;
