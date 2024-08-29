@@ -55,7 +55,7 @@
             align-items: center;
             margin-bottom: 3rem;
             flex-wrap: wrap;
-            padding-top: 80px;
+            padding-top: 20px;
         }
         .profile-image-container {
             width: 250px;
@@ -124,7 +124,7 @@
             position: relative;
             overflow: hidden;
         }
-        .section:hover {
+        .section:hover, .section:focus, .section:active {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             background-color: rgba(255, 255, 255, 0.15);
@@ -169,50 +169,38 @@
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-        .nav-bar {
+        .nav-menu {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: var(--dark-gray);
+            background-color: transparent;
             padding: 1rem 0;
             z-index: 1000;
             transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
         }
-        .nav-bar.hidden {
-            transform: translateY(-100%);
-        }
-        .nav-bar ul {
+        .nav-menu ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: flex;
-            justify-content: center;
         }
-        .nav-bar li {
+        .nav-menu li {
             margin: 0 0.5rem;
-            position: relative;
         }
-        .nav-bar a {
+        .nav-menu a {
             color: white;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-        .nav-bar a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        .nav-bar a:hover::after, .nav-bar a.active::after {
-            width: 100%;
-            left: 0;
+        .nav-menu a:hover, .nav-menu a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
         }
         .footer {
             text-align: center;
@@ -224,6 +212,10 @@
         .blur {
             filter: blur(3px);
             transition: filter 0.3s ease;
+        }
+        .darken {
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
         @media (max-width: 768px) {
             .header {
@@ -246,16 +238,16 @@
             p, ul {
                 font-size: 0.9rem;
             }
-            .nav-bar {
+            .nav-menu {
                 padding: 0.5rem 0;
             }
-            .nav-bar ul {
+            .nav-menu ul {
                 flex-wrap: wrap;
             }
-            .nav-bar li {
+            .nav-menu li {
                 margin: 0.25rem;
             }
-            .nav-bar a {
+            .nav-menu a {
                 padding: 0.25rem 0.5rem;
                 font-size: 0.9rem;
             }
@@ -263,7 +255,7 @@
     </style>
 </head>
 <body>
-    <nav class="nav-bar" id="navbar">
+    <nav class="nav-menu" id="navbar">
         <ul>
             <li><a href="#about">About Me</a></li>
             <li><a href="#skills">Skills & Interests</a></li>
@@ -437,19 +429,6 @@
         }
 
         const navbar = document.getElementById('navbar');
-        let lastScrollTop = 0;
-        const navbarHeight = navbar.offsetHeight;
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
-                navbar.classList.add('hidden');
-            } else if (scrollTop <= 0) {
-                navbar.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        });
-
         const navLinks = navbar.getElementsByTagName('a');
         const sections = document.querySelectorAll('.section');
 
@@ -457,7 +436,7 @@
             const scrollPosition = window.scrollY;
 
             sections.forEach((section) => {
-                const sectionTop = section.offsetTop - navbarHeight - 10;
+                const sectionTop = section.offsetTop - 10;
                 const sectionBottom = sectionTop + section.offsetHeight;
 
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
@@ -483,65 +462,44 @@
 
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - navbarHeight,
+                        top: targetElement.offsetTop,
                         behavior: 'smooth'
                     });
                 }
             });
         });
 
-        let touchStartX = 0;
-        let touchEndX = 0;
+        function handleSectionInteraction(section) {
+            sections.forEach(s => {
+                if (s !== section) {
+                    s.classList.add('blur');
+                    s.style.opacity = '0.7';
+                } else {
+                    s.classList.remove('blur');
+                    s.style.opacity = '1';
+                    if (s.id === 'skills' && !progressFilled) {
+                        animateProgress();
+                    }
+                }
+            });
+        }
+
+        function resetSections() {
+            sections.forEach(s => {
+                s.classList.remove('blur');
+                s.style.opacity = '1';
+            });
+        }
 
         sections.forEach(section => {
-            section.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-
-            section.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe(section);
-            }, false);
-
-            section.addEventListener('mouseover', function() {
-                if (!('ontouchstart' in window)) {  // Check if it's not a touch device
-                    sections.forEach(s => {
-                        if (s !== this) {
-                            s.classList.add('blur');
-                        } else {
-                            s.classList.remove('blur');
-                            if (s.id === 'skills' && !progressFilled) {
-                                animateProgress();
-                            }
-                        }
-                    });
-                }
+            ['touchstart', 'mouseover'].forEach(eventType => {
+                section.addEventListener(eventType, () => handleSectionInteraction(section), false);
             });
 
-            section.addEventListener('mouseout', function() {
-                if (!('ontouchstart' in window)) {  // Check if it's not a touch device
-                    sections.forEach(s => s.classList.remove('blur'));
-                }
+            ['touchend', 'mouseout'].forEach(eventType => {
+                section.addEventListener(eventType, resetSections, false);
             });
         });
-
-        function handleSwipe(section) {
-            const difference = touchStartX - touchEndX;
-            if (Math.abs(difference) > 50) {  // Minimum swipe distance
-                sections.forEach(s => {
-                    if (s !== section) {
-                        s.classList.add('blur');
-                    } else {
-                        s.classList.remove('blur');
-                        if (s.id === 'skills' && !progressFilled) {
-                            animateProgress();
-                        }
-                    }
-                });
-            } else {
-                sections.forEach(s => s.classList.remove('blur'));
-            }
-        }
 
         window.addEventListener('load', () => {
             resetProgress();
