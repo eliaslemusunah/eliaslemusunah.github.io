@@ -155,7 +155,7 @@
         }
         .nav-menu {
             position: fixed;
-            top: -50px;
+            top: -60px; /* Increased to ensure full hiding */
             left: 0;
             width: 100%;
             padding: 1rem 0;
@@ -163,6 +163,7 @@
             transition: top 0.3s ease;
             display: flex;
             justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
         }
         .nav-menu ul {
             list-style-type: none;
@@ -186,11 +187,12 @@
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background-color: white;
-            transition: width 0.3s ease;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
         .nav-menu a:hover::after, .nav-menu a.active::after {
             width: 100%;
@@ -441,7 +443,7 @@
             if (scrollPosition <= 0) {
                 navbar.style.top = "0";
             } else {
-                navbar.style.top = "-50px";
+                navbar.style.top = "-60px"; // Increased to ensure full hiding
             }
         }
 
@@ -463,37 +465,44 @@
             });
         });
 
+        let activeSection = null;
+
         function handleSectionInteraction(section) {
-            sections.forEach(s => {
-                if (s !== section) {
-                    s.classList.add('blur');
-                    s.style.backgroundColor = '';
-                } else {
-                    s.classList.remove('blur');
-                    s.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-                    if (s.id === 'skills' && !progressFilled) {
-                        animateProgress();
+            if (activeSection !== section) {
+                sections.forEach(s => {
+                    if (s !== section) {
+                        s.classList.add('blur');
+                        s.style.backgroundColor = '';
+                    } else {
+                        s.classList.remove('blur');
+                        s.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+                        if (s.id === 'skills' && !progressFilled) {
+                            animateProgress();
+                        }
                     }
-                }
-            });
+                });
+                activeSection = section;
+            }
         }
 
-        function resetSections() {
-            sections.forEach(s => {
-                s.classList.remove('blur');
-                s.style.backgroundColor = '';
-            });
+        function resetSections(event) {
+            if (!event.target.closest('.section')) {
+                sections.forEach(s => {
+                    s.classList.remove('blur');
+                    s.style.backgroundColor = '';
+                });
+                activeSection = null;
+            }
         }
 
         sections.forEach(section => {
             ['touchstart', 'mouseover'].forEach(eventType => {
                 section.addEventListener(eventType, () => handleSectionInteraction(section), { passive: true });
             });
-
-            ['touchend', 'mouseout'].forEach(eventType => {
-                section.addEventListener(eventType, resetSections, { passive: true });
-            });
         });
+
+        document.addEventListener('touchstart', resetSections, { passive: true });
+        document.addEventListener('mouseover', resetSections);
 
         window.addEventListener('load', () => {
             resetProgress();
