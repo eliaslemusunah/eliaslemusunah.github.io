@@ -414,20 +414,26 @@
 
         const profileImage = document.querySelector('.profile-image-inner');
 
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', handleOrientation);
+        function handleOrientation(event) {
+            if (window.innerWidth > window.innerHeight) {
+                // Landscape mode
+                const x = event.beta ? event.beta : event.accelerationIncludingGravity.x * 2;
+                const y = event.gamma ? event.gamma : event.accelerationIncludingGravity.y * 2;
+                
+                const tiltX = Math.min(Math.max(y, -45), 45) / 3;
+                const tiltY = Math.min(Math.max(-x, -45), 45) / 3;
+                
+                profileImage.style.transform = `perspective(1000px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
+            } else {
+                // Portrait mode
+                profileImage.style.transform = 'none';
+            }
         }
 
-        function handleOrientation(event) {
-            const x = event.beta;
-            const y = event.gamma;
-            if (x > 90) { x = 90; }
-            if (x < -90) { x = -90; }
-            const xRange = x + 90;
-            const yRange = y + 90;
-            const tiltX = (yRange - 90) / 90 * 15;
-            const tiltY = (xRange - 90) / 90 * -15;
-            profileImage.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', handleOrientation);
+        } else if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', handleOrientation);
         }
 
         const navbar = document.getElementById('navbar');
@@ -541,19 +547,25 @@
             resetProgress();
         });
 
-        // Fix for horizontal orientation issues
-        window.addEventListener('resize', () => {
-            if (window.orientation === 90 || window.orientation === -90) {
-                document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
+        function adjustFontSizes() {
+            const subtitles = document.querySelectorAll('.subtitle');
+            if (window.innerWidth > window.innerHeight) {
+                // Landscape mode
+                subtitles.forEach(subtitle => {
+                    subtitle.style.fontSize = '1rem';
+                });
             } else {
-                document.querySelector('.subtitle:last-child').style.fontSize = '';
+                // Portrait mode
+                subtitles.forEach(subtitle => {
+                    subtitle.style.fontSize = '';
+                });
             }
-        });
-
-        // Initial check for orientation
-        if (window.orientation === 90 || window.orientation === -90) {
-            document.querySelector('.subtitle:last-child').style.fontSize = '1rem';
         }
+
+        // Initial check for orientation and subsequent checks on resize and orientation change
+        adjustFontSizes();
+        window.addEventListener('resize', adjustFontSizes);
+        window.addEventListener('orientationchange', adjustFontSizes);
     </script>
 </body>
 </html>
