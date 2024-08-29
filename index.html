@@ -125,11 +125,10 @@
             overflow: hidden;
         }
         .section:hover, .section:focus, .section:active {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        .section.active {
             background-color: rgba(0, 0, 0, 0.3);
+        }
+        .section.blur {
+            filter: blur(3px);
         }
         .progress-bar {
             background-color: rgba(255, 255, 255, 0.2);
@@ -202,10 +201,6 @@
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             font-size: 0.8rem;
-        }
-        .blur {
-            filter: blur(3px);
-            transition: filter 0.3s ease;
         }
         @media (max-width: 768px) {
             .header {
@@ -444,9 +439,9 @@
 
             // Show navbar only at the top of the page
             if (scrollPosition <= 0) {
-                navbar.style.transform = 'translateY(0)';
+                navbar.style.top = "0";
             } else {
-                navbar.style.transform = 'translateY(-100%)';
+                navbar.style.top = "-50px";
             }
         }
 
@@ -472,10 +467,10 @@
             sections.forEach(s => {
                 if (s !== section) {
                     s.classList.add('blur');
-                    s.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                    s.style.backgroundColor = '';
                 } else {
                     s.classList.remove('blur');
-                    s.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    s.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
                     if (s.id === 'skills' && !progressFilled) {
                         animateProgress();
                     }
