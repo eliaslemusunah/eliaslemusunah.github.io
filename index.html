@@ -159,7 +159,7 @@
         }
         .nav-menu {
             position: fixed;
-            top: -60px;
+            top: 0;
             left: 0;
             width: 100%;
             padding: 1rem 0;
@@ -167,7 +167,7 @@
             transition: top 0.3s ease;
             display: flex;
             justify-content: center;
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0.5);
         }
         .nav-menu ul {
             list-style-type: none;
@@ -221,7 +221,7 @@
                 font-size: 2rem;
             }
             .subtitle {
-                font-size: 0.9rem !important;
+                font-size: 1rem !important;
             }
             h2 {
                 font-size: 1.3rem;
@@ -242,6 +242,19 @@
             .nav-menu a {
                 padding: 0.25rem 0.5rem;
                 font-size: 0.9rem;
+            }
+        }
+        @media (orientation: landscape) {
+            .header {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .profile-image-container {
+                width: 150px;
+                height: 150px;
+            }
+            .subtitle {
+                font-size: 0.9rem !important;
             }
         }
     </style>
@@ -268,7 +281,7 @@
                 <p class="subtitle"><span class="icon">🏡</span>Choloma, Honduras</p>
                 <p class="subtitle"><span class="icon">📍</span>Born in San Pedro Sula, Honduras; June 20, 2001</p>
                 <p class="subtitle"><span class="icon">👨🏻‍💻</span>Systems Engineering Student | Universidad Nacional Autónoma de Honduras</p>
-                <p class="subtitle"><span class="icon">👨‍💼</span>Aspiring Project Manager</p>
+                <p class="subtitle"><span class="icon">👨🏻‍💼</span>Aspiring Project Manager</p>
             </div>
         </header>
 
@@ -444,16 +457,13 @@
                 }
             });
 
-            // Show navbar only at the top of the page
-            if (scrollPosition <= 0) {
-                navbar.style.top = "0";
-            } else {
-                navbar.style.top = "-60px"; // Increased to ensure full hiding
-            }
+            // Always show navbar
+            navbar.style.top = "0";
         }
 
         window.addEventListener('scroll', setActiveLink);
-        setActiveLink();
+        window.addEventListener('load', setActiveLink);
+        window.addEventListener('resize', setActiveLink);
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -513,26 +523,30 @@
             resetProgress();
         });
 
-        function adjustFontSizes() {
+        function adjustLayout() {
             const subtitles = document.querySelectorAll('.subtitle');
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             if (window.innerWidth > window.innerHeight || isIOS) {
                 // Landscape mode or iOS device
                 subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '1rem';
+                    subtitle.style.fontSize = '0.9rem';
                 });
+                document.querySelector('.profile-image-container').style.width = '150px';
+                document.querySelector('.profile-image-container').style.height = '150px';
             } else {
                 // Portrait mode (non-iOS)
                 subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '';
+                    subtitle.style.fontSize = '1rem';
                 });
+                document.querySelector('.profile-image-container').style.width = '250px';
+                document.querySelector('.profile-image-container').style.height = '250px';
             }
         }
 
         // Initial check for orientation and subsequent checks on resize and orientation change
-        adjustFontSizes();
-        window.addEventListener('resize', adjustFontSizes);
-        window.addEventListener('orientationchange', adjustFontSizes);
+        adjustLayout();
+        window.addEventListener('resize', adjustLayout);
+        window.addEventListener('orientationchange', adjustLayout);
     </script>
 </body>
 </html>
