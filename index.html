@@ -250,10 +250,35 @@
                 padding: 0.25rem 0.5rem;
                 font-size: 0.9rem;
             }
+            .section {
+                padding: 1rem;
+            }
         }
         @media (orientation: landscape) and (max-width: 1024px) {
             .subtitle {
                 font-size: 0.9rem !important;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+        /* Estilos específicos para iPhone */
+        @media only screen 
+        and (min-device-width: 375px) 
+        and (max-device-width: 812px) 
+        and (-webkit-min-device-pixel-ratio: 3) {
+            .subtitle {
+                font-size: 0.9rem !important;
+            }
+            .section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            p, ul {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -291,6 +316,7 @@
             <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a foundation as a Professional Technical Bachelor in Computer Science, which I completed on December 6, 2019. This background has provided me with a starting point for my university studies, where I'm eager to expand my knowledge in the field of technology.</p>
             <p>My journey in tech is driven by a curiosity to explore how technology can solve real-world problems and improve people's lives. I have a keen eye for visual design and enjoy creating solutions that are not only functional but also aesthetically pleasing. In all my projects, I strive for clean, well-organized code and intuitive user interfaces, believing that the clarity of the code and the attractiveness of the design are equally important.</p>
             <p>I'm always looking to learn and grow, tackling new challenges with enthusiasm and an open mind. While I have a foundation, I recognize that there's always more to learn in the ever-evolving world of technology.</p>
+            <p>I'm deeply grateful to my mother, María Irma Lemus, whose tireless efforts have given me the opportunity to study Systems Engineering. Her hard work and dedication have been a constant source of inspiration, driving me to excel in my studies and pursue my dreams in the field of technology.</p>
         </section>
 
         <section id="skills" class="section">
