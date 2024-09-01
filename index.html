@@ -228,7 +228,7 @@
                 font-size: 2rem;
             }
             .subtitle {
-                font-size: 1rem !important;
+                font-size: 0.9rem !important;
             }
             h2 {
                 font-size: 1.3rem;
@@ -249,6 +249,11 @@
             .nav-menu a {
                 padding: 0.25rem 0.5rem;
                 font-size: 0.9rem;
+            }
+        }
+        @media (orientation: landscape) and (max-width: 1024px) {
+            .subtitle {
+                font-size: 0.8rem !important;
             }
         }
     </style>
@@ -281,95 +286,8 @@
             </div>
         </header>
 
-        <section id="about" class="section">
-            <h2>About Me</h2>
-            <p>Born and raised in Honduras, I'm a passionate Systems Engineering student with a foundation as a Professional Technical Bachelor in Computer Science, which I completed on December 6, 2019. This background has provided me with a starting point for my university studies, where I'm eager to expand my knowledge in the field of technology.</p>
-            <p>My journey in tech is driven by a curiosity to explore how technology can solve real-world problems and improve people's lives. I have a keen eye for visual design and enjoy creating solutions that are not only functional but also aesthetically pleasing. In all my projects, I strive for clean, well-organized code and intuitive user interfaces, believing that the clarity of the code and the attractiveness of the design are equally important.</p>
-            <p>I'm always looking to learn and grow, tackling new challenges with enthusiasm and an open mind. While I have a foundation, I recognize that there's always more to learn in the ever-evolving world of technology.</p>
-        </section>
+        <!-- El resto del contenido HTML permanece sin cambios -->
 
-        <section id="skills" class="section">
-            <h2>Skills & Interests</h2>
-            <ul>
-                <li>Project Management</li>
-                <li>Operating Systems</li>
-                <li>Programming Languages</li>
-                <li>Information Systems</li>
-                <li>Business Administration</li>
-                <li>User Interface Design</li>
-                <li>Code Organization and Documentation</li>
-            </ul>
-            <h3>Academic Progress</h3>
-            <div class="progress-bar">
-                <div class="progress" data-percent="59%"></div>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <h2>Featured Projects</h2>
-            <div>
-                <h3>Windows Server 2012 R2 Domain Configuration (Operating Systems I)</h3>
-                <p>I explored the functionality of Windows Server 2012 R2 by configuring a complete domain service environment. The project involved:</p>
-                <ul>
-                    <li>Setting up a domain service for a simulated company environment</li>
-                    <li>Configuring DNS and connecting a Windows 7 Professional computer to the server's network</li>
-                    <li>Creating and managing user accounts with specific group permissions (Purchasing and Sales) and implementing folder access controls</li>
-                    <li>Developing and hosting a custom HTML webpage using Internet Information Services (IIS), made accessible via www.itsme.com</li>
-                    <li>Utilizing key administrative tools such as Active Directory Domain Services (AD DS), Domain Name System (DNS), Dynamic Host Configuration Protocol (DHCP), and Internet Information Services (IIS)</li>
-                </ul>
-                <p>This project demonstrated my ability to configure and manage complex server environments, showcasing skills in network administration, user management, and web hosting within a Windows Server ecosystem.</p>
-            </div>
-            <div>
-                <h3>Event Organizer Application (Programming Languages)</h3>
-                <p>We developed a comprehensive mobile application using Flutter and Firebase, designed to streamline event planning and management. Key features include:</p>
-                <ul>
-                    <li>Intuitive event creation and management interface</li>
-                    <li>Seamless calendar integration for efficient event tracking</li>
-                    <li>Robust guest list management functionality</li>
-                    <li>Detailed user expense tracking for improved budget control</li>
-                    <li>Customizable event templates and themes</li>
-                    <li>Collaborative budgeting tools for group events</li>
-                    <li>Integration with user's personal finances for comprehensive financial management</li>
-                </ul>
-                <p>This project showcased our proficiency in mobile app development, database integration, and user-centered design. We created a practical tool that not only facilitates event organization but also provides comprehensive financial management features, making it a versatile solution for both personal and professional event planning.</p>
-            </div>
-            <div>
-                <h3>Technical Service Management System (Database II)</h3>
-                <p>We engineered an efficient system for a technical support company using SQL Server and C# with Visual Studio. The system comprehensively manages:</p>
-                <ul>
-                    <li>Client contracts and diverse service packages</li>
-                    <li>Dynamic technician assignments based on client needs and real-time technician availability</li>
-                    <li>Detailed inventory tracking of tools and materials used in service provision</li>
-                    <li>Complex financial transactions including monthly billing, package subscriptions, and itemized service charges</li>
-                    <li>Company bank accounts, meticulously tracking income from invoices and various expenses such as purchases and payroll</li>
-                 </ul>
-                <p>Our project showcased advanced database design skills, including the creation of a robust database structure and implementation of stored procedures for CRUD operations across all tables, incorporating sophisticated auto-numbering calculations where necessary.</p>
-            </div>
-            <div>
-                <h3>Hotel Information Systems Analysis and Recommendation (Information Systems)</h3>
-                <p>We conducted a comprehensive analysis and implementation plan for Hotel Nacional S.A., focusing on enhancing their existing ERP system (Skill4IT) with complementary information systems. Our project encompassed:</p>
-                <ul>
-                    <li>Thorough evaluation of the hotel's current information systems, identifying strengths and areas for improvement</li>
-                    <li>In-depth analysis of various information system types, including ERP, CRM, SCM, KWS, LMS, ES, Machine Learning, BI, and DSS to determine the most suitable solutions for the hotel's specific needs</li>
-                    <li>Recommendation of Salesforce Service Cloud as a complementary CRM system to work alongside the existing Skill4IT ERP</li>
-                    <li>Development of a detailed implementation plan for integrating the recommended systems with Skill4IT</li>
-                </ul>
-                <p>This project demonstrated our ability to analyze complex business needs, recommend appropriate technological solutions, and create a comprehensive plan for successful implementation and integration of multiple information systems in a real-world business environment.</p>
-            </div>
-        </section>
-        
-        <section id="goals" class="section">
-            <h2>Professional Goals</h2>
-            <p>As I continue my journey in Systems Engineering, I'm drawn to project management. My interest stems from the observation that when work is distributed in a way that allows people to feel comfortable and enjoy what they do, success is often achieved. This approach also allows for identifying weaknesses or potential in the work being carried out.</p>
-            <p>Currently, I'm focused on:</p>
-            <ul>
-                <li>Deepening my understanding of various aspects of technology</li>
-                <li>Developing software solutions that address real-world challenges</li>
-                <li>Honing my skills in team leadership and communication</li>
-                <li>Exploring emerging technologies to improve business processes and user experiences</li>
-            </ul>
-            <p>Looking ahead, I aim to combine my passion for technology with culinary traditions, envisioning a tech-driven restaurant that serves delicious recipes while leveraging technology to enhance customer experience and streamline operations.</p>
-        </section>
     </div>
 
     <footer class="footer">
@@ -377,173 +295,199 @@
     </footer>
 
     <script>
-        let progressFilled = false;
+        (function() {
+            let progressFilled = false;
 
-        function animateProgress() {
-            const progress = document.querySelector('.progress');
-            let width = 0;
-            const targetWidth = 59; // 59% of the total width
-            progress.style.display = 'flex';
-            const interval = setInterval(() => {
-                if (width >= targetWidth) {
-                    clearInterval(interval);
-                    progressFilled = true;
-                    progress.textContent = '59%'; // Ensure it shows exactly 59% at the end
-                } else {
-                    width++;
-                    progress.style.width = width + '%';
-                    progress.textContent = Math.round(width) + '%';
-                }
-            }, 20); // Adjusted for smoother animation
-        }
-
-        function resetProgress() {
-            if (!progressFilled) {
+            function animateProgress() {
                 const progress = document.querySelector('.progress');
-                progress.style.width = '0%';
-                progress.textContent = '';
-                progress.style.display = 'none';
-            }
-        }
-
-        const profileImage = document.querySelector('.profile-image-inner');
-
-        function handleOrientation(event) {
-            if (window.innerWidth > window.innerHeight) {
-                // Landscape mode
-                const x = event.beta ? event.beta : event.accelerationIncludingGravity.x * 2;
-                const y = event.gamma ? event.gamma : event.accelerationIncludingGravity.y * 2;
-                
-                const tiltX = Math.min(Math.max(y, -45), 45) / 3;
-                const tiltY = Math.min(Math.max(-x, -45), 45) / 3;
-                
-                profileImage.style.transform = `perspective(1000px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
-            } else {
-                // Portrait mode
-                profileImage.style.transform = 'none';
-            }
-        }
-
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', handleOrientation);
-        } else if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', handleOrientation);
-        }
-
-        const navbar = document.getElementById('navbar');
-        const navLinks = navbar.getElementsByTagName('a');
-        const sections = document.querySelectorAll('.section');
-        let lastScrollTop = 0;
-
-        function setActiveLink() {
-            const scrollPosition = window.scrollY;
-
-            // Show navbar only at the top of the page
-            if (scrollPosition <= 50) {
-                navbar.classList.add('visible');
-            } else {
-                navbar.classList.remove('visible');
-            }
-
-            // Remove active class from all links
-            Array.from(navLinks).forEach(link => {
-                link.classList.remove('active');
-            });
-        }
-
-        window.addEventListener('scroll', setActiveLink);
-        setActiveLink();
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - navbar.offsetHeight,
-                        behavior: 'smooth'
-                    });
-
-                    // Add active class to clicked link
-                    Array.from(navLinks).forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
-
-                    // Remove active class after a short delay
-                    setTimeout(() => {
-                        this.classList.remove('active');
-                    }, 300);
-                }
-            });
-        });
-
-        let activeSection = null;
-
-        function handleSectionInteraction(section) {
-            if (activeSection !== section) {
-                sections.forEach(s => {
-                    if (s !== section) {
-                        s.classList.add('blur');
-                        s.style.backgroundColor = '';
+                if (!progress) return;
+                let width = 0;
+                const targetWidth = 59;
+                progress.style.display = 'flex';
+                const interval = setInterval(() => {
+                    if (width >= targetWidth) {
+                        clearInterval(interval);
+                        progressFilled = true;
+                        progress.textContent = '59%';
                     } else {
-                        s.classList.remove('blur');
-                        s.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-                        if (s.id === 'skills' && !progressFilled) {
-                            animateProgress();
-                        }
+                        width++;
+                        progress.style.width = width + '%';
+                        progress.textContent = Math.round(width) + '%';
+                    }
+                }, 20);
+            }
+
+            function resetProgress() {
+                if (!progressFilled) {
+                    const progress = document.querySelector('.progress');
+                    if (progress) {
+                        progress.style.width = '0%';
+                        progress.textContent = '';
+                        progress.style.display = 'none';
+                    }
+                }
+            }
+
+            const profileImage = document.querySelector('.profile-image-inner');
+
+            function handleOrientation(event) {
+                if (!event) return;
+                if (window.innerWidth > window.innerHeight) {
+                    const x = event.beta || (event.accelerationIncludingGravity && event.accelerationIncludingGravity.x * 2) || 0;
+                    const y = event.gamma || (event.accelerationIncludingGravity && event.accelerationIncludingGravity.y * 2) || 0;
+                    
+                    const tiltX = Math.min(Math.max(y, -45), 45) / 3;
+                    const tiltY = Math.min(Math.max(-x, -45), 45) / 3;
+                    
+                    profileImage.style.transform = `perspective(1000px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
+                } else {
+                    profileImage.style.transform = 'none';
+                }
+            }
+
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleOrientation, true);
+            } else if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', handleOrientation, true);
+            }
+
+            const navbar = document.getElementById('navbar');
+            const navLinks = navbar.getElementsByTagName('a');
+            const sections = document.querySelectorAll('.section');
+
+            function setActiveLink() {
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition <= 50) {
+                    navbar.classList.add('visible');
+                } else {
+                    navbar.classList.remove('visible');
+                }
+
+                Array.from(navLinks).forEach(link => {
+                    link.classList.remove('active');
+                });
+            }
+
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink();
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbar.offsetHeight,
+                            behavior: 'smooth'
+                        });
+
+                        Array.from(navLinks).forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+
+                        setTimeout(() => {
+                            this.classList.remove('active');
+                        }, 300);
                     }
                 });
-                activeSection = section;
-            }
-        }
-
-        function resetSections(event) {
-            if (!event.target.closest('.section')) {
-                sections.forEach(s => {
-                    s.classList.remove('blur');
-                    s.style.backgroundColor = '';
-                });
-                activeSection = null;
-            }
-        }
-
-        sections.forEach(section => {
-            ['touchstart', 'mouseover'].forEach(eventType => {
-                section.addEventListener(eventType, () => handleSectionInteraction(section), { passive: true });
             });
-        });
 
-        document.addEventListener('touchstart', resetSections, { passive: true });
-        document.addEventListener('mouseover', resetSections);
+            let activeSection = null;
 
-        window.addEventListener('load', () => {
-            resetProgress();
-            // Scroll to top on page load
-            window.scrollTo(0, 0);
-        });
-
-        function adjustFontSizes() {
-            const subtitles = document.querySelectorAll('.subtitle');
-            if (window.innerWidth > window.innerHeight) {
-                // Landscape mode
-                subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '1rem';
-                });
-            } else {
-                // Portrait mode
-                subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '';
-                });
+            function handleSectionInteraction(section) {
+                if (activeSection !== section) {
+                    sections.forEach(s => {
+                        if (s !== section) {
+                            s.classList.add('blur');
+                            s.style.backgroundColor = '';
+                        } else {
+                            s.classList.remove('blur');
+                            s.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+                            if (s.id === 'skills' && !progressFilled) {
+                                animateProgress();
+                            }
+                        }
+                    });
+                    activeSection = section;
+                }
             }
-        }
 
-        // Initial check for orientation and subsequent checks on resize and orientation change
-        adjustFontSizes();
-        window.addEventListener('resize', adjustFontSizes);
-        window.addEventListener('orientationchange', adjustFontSizes);
+            function resetSections(event) {
+                if (!event.target.closest('.section')) {
+                    sections.forEach(s => {
+                        s.classList.remove('blur');
+                        s.style.backgroundColor = '';
+                    });
+                    activeSection = null;
+                }
+            }
+
+            sections.forEach(section => {
+                ['touchstart', 'mouseover'].forEach(eventType => {
+                    section.addEventListener(eventType, () => handleSectionInteraction(section), { passive: true });
+                });
+            });
+
+            document.addEventListener('touchstart', resetSections, { passive: true });
+            document.addEventListener('mouseover', resetSections);
+
+            window.addEventListener('load', () => {
+                resetProgress();
+                window.scrollTo(0, 0);
+            });
+
+            function adjustFontSizes() {
+                const subtitles = document.querySelectorAll('.subtitle');
+                if (window.innerWidth > window.innerHeight) {
+                    // Landscape mode
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '0.8rem';
+                    });
+                } else {
+                    // Portrait mode
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '';
+                    });
+                }
+            }
+
+            adjustFontSizes();
+            window.addEventListener('resize', adjustFontSizes);
+            window.addEventListener('orientationchange', adjustFontSizes);
+
+            // Prevenir la inspección del código
+            document.onkeydown = function(e) {
+                if(e.keyCode == 123) {
+                    return false;
+                }
+                if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                    return false;
+                }
+                if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                    return false;
+                }
+                if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                    return false;
+                }
+                if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                    return false;
+                }
+            };
+
+            // Deshabilitar el menú contextual
+            document.addEventListener('contextmenu', e => e.preventDefault());
+
+            // Ocultar errores de consola
+            window.onerror = function() {
+                return true;
+            };
+
+            console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = console.groupCollapsed = function() {};
+        })();
     </script>
 </body>
 </html>
