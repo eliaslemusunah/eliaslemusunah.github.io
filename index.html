@@ -155,15 +155,18 @@
         }
         .nav-menu {
             position: fixed;
-            top: -60px; /* Increased to ensure full hiding */
+            top: 0;
             left: 0;
             width: 100%;
             padding: 1rem 0;
             z-index: 1000;
-            transition: top 0.3s ease;
+            transition: background-color 0.3s ease;
             display: flex;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .nav-menu.scrolled {
+            background-color: rgba(0, 0, 0, 0.7);
         }
         .nav-menu ul {
             list-style-type: none;
@@ -203,6 +206,13 @@
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             font-size: 0.8rem;
+        }
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         @media (max-width: 768px) {
             .header {
@@ -261,9 +271,12 @@
             </div>
             <div>
                 <h1>Elías J. Lemus</h1>
-                <p class="subtitle"><span class="icon">📍</span>Choloma, Honduras | Born in San Pedro Sula, Honduras; June 20, 2001</p>
-                <p class="subtitle"><span class="icon">💻</span>Systems Engineering Student | Universidad Nacional Autónoma de Honduras</p>
-                <p class="subtitle"><span class="icon">📊</span>Aspiring Project Manager</p>
+                <div class="info-box">
+                    <p class="subtitle"><span class="icon">🏡</span>Choloma, Honduras</p>
+                    <p class="subtitle"><span class="icon">📍</span>Born in San Pedro Sula, Honduras; June 20, 2001</p>
+                    <p class="subtitle"><span class="icon">👨🏻‍💻</span>Systems Engineering Student | Universidad Nacional Autónoma de Honduras</p>
+                    <p class="subtitle"><span class="icon">👨‍💼</span>Aspiring Project Manager</p>
+                </div>
             </div>
         </header>
 
@@ -328,7 +341,7 @@
                     <li>Detailed inventory tracking of tools and materials used in service provision</li>
                     <li>Complex financial transactions including monthly billing, package subscriptions, and itemized service charges</li>
                     <li>Company bank accounts, meticulously tracking income from invoices and various expenses such as purchases and payroll</li>
-                </ul>
+                 </ul>
                 <p>Our project showcased advanced database design skills, including the creation of a robust database structure and implementation of stored procedures for CRUD operations across all tables, incorporating sophisticated auto-numbering calculations where necessary.</p>
             </div>
             <div>
@@ -425,7 +438,7 @@
             const scrollPosition = window.scrollY;
 
             sections.forEach((section) => {
-                const sectionTop = section.offsetTop - 10;
+                const sectionTop = section.offsetTop - 100; // Adjusted offset
                 const sectionBottom = sectionTop + section.offsetHeight;
 
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
@@ -439,11 +452,11 @@
                 }
             });
 
-            // Show navbar only at the top of the page
-            if (scrollPosition <= 0) {
-                navbar.style.top = "0";
+            // Add scrolled class to navbar when scrolling down
+            if (scrollPosition > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.top = "-60px"; // Increased to ensure full hiding
+                navbar.classList.remove('scrolled');
             }
         }
 
@@ -506,6 +519,8 @@
 
         window.addEventListener('load', () => {
             resetProgress();
+            // Scroll to top on page load
+            window.scrollTo(0, 0);
         });
 
         function adjustFontSizes() {
@@ -529,4 +544,4 @@
         window.addEventListener('orientationchange', adjustFontSizes);
     </script>
 </body>
-</html>
+</html>   
