@@ -89,7 +89,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 0.5rem;
             font-weight: 400;
             display: flex;
@@ -227,14 +227,11 @@
             h1 {
                 font-size: 2rem;
             }
-            .subtitle {
-                font-size: 1rem !important;
+            .subtitle, p, ul {
+                font-size: 0.9rem;
             }
             h2 {
                 font-size: 1.3rem;
-            }
-            p, ul {
-                font-size: 0.9rem;
             }
             .nav-menu {
                 padding: 0.5rem 0;
@@ -255,11 +252,15 @@
             }
         }
         @media (orientation: landscape) and (max-width: 1024px) {
-            .subtitle {
-                font-size: 0.9rem !important;
+            .subtitle, p, ul {
+                font-size: 0.8rem;
+            }
+            h2 {
+                font-size: 1.1rem;
             }
             .section {
-                padding: 1rem;
+                padding: 0.8rem;
+                margin-bottom: 1rem;
             }
         }
         /* Estilos específicos para iPhone */
@@ -267,8 +268,8 @@
         and (min-device-width: 375px) 
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
-            .subtitle {
-                font-size: 0.9rem !important;
+            .subtitle, p, ul {
+                font-size: 0.85rem;
             }
             .section {
                 padding: 1rem;
@@ -276,9 +277,6 @@
             }
             h2 {
                 font-size: 1.2rem;
-            }
-            p, ul {
-                font-size: 0.85rem;
             }
         }
     </style>
@@ -558,12 +556,12 @@
                 if (window.innerWidth > window.innerHeight) {
                     // Landscape mode
                     subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.9rem';
+                        subtitle.style.fontSize = '0.8rem';
                     });
                 } else {
                     // Portrait mode
                     subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '1.1rem';
+                        subtitle.style.fontSize = '0.9rem';
                     });
                 }
             }
