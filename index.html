@@ -253,7 +253,7 @@
         }
         @media (orientation: landscape) and (max-width: 1024px) {
             .subtitle, p, ul {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
             h2 {
                 font-size: 1.1rem;
@@ -277,6 +277,12 @@
             }
             h2 {
                 font-size: 1.2rem;
+            }
+        }
+        /* Ajuste para pantallas grandes (computadoras) */
+        @media (min-width: 1025px) {
+            .subtitle, p, ul {
+                font-size: 1rem;
             }
         }
     </style>
@@ -553,15 +559,22 @@
 
             function adjustFontSizes() {
                 const subtitles = document.querySelectorAll('.subtitle');
+                const content = document.querySelectorAll('p, ul');
                 if (window.innerWidth > window.innerHeight) {
                     // Landscape mode
                     subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.8rem';
+                        subtitle.style.fontSize = '0.85rem';
+                    });
+                    content.forEach(item => {
+                        item.style.fontSize = '0.85rem';
                     });
                 } else {
                     // Portrait mode
                     subtitles.forEach(subtitle => {
                         subtitle.style.fontSize = '0.9rem';
+                    });
+                    content.forEach(item => {
+                        item.style.fontSize = '0.9rem';
                     });
                 }
             }
