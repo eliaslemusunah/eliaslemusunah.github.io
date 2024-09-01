@@ -53,9 +53,9 @@
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
-            padding-top: 80px;
+            padding-top: 60px;
         }
         .profile-image-container {
             width: 250px;
@@ -160,13 +160,14 @@
             width: 100%;
             padding: 1rem 0;
             z-index: 1000;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
             display: flex;
             justify-content: center;
             background-color: rgba(0, 0, 0, 0);
+            opacity: 0;
         }
-        .nav-menu.scrolled {
-            background-color: rgba(0, 0, 0, 0.7);
+        .nav-menu.visible {
+            opacity: 1;
         }
         .nav-menu ul {
             list-style-type: none;
@@ -209,9 +210,9 @@
         }
         .info-box {
             background-color: transparent;
-            padding: 1rem;
+            padding: 0.5rem;
             border-radius: 8px;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             box-shadow: none;
         }
         @media (max-width: 768px) {
@@ -437,27 +438,17 @@
         function setActiveLink() {
             const scrollPosition = window.scrollY;
 
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop - 100; // Adjusted offset
-                const sectionBottom = sectionTop + section.offsetHeight;
-
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    const id = section.getAttribute('id');
-                    Array.from(navLinks).forEach((link) => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-
-            // Add scrolled class to navbar when scrolling down
-            if (scrollPosition > 50) {
-                navbar.classList.add('scrolled');
+            // Show navbar only at the top of the page
+            if (scrollPosition <= 50) {
+                navbar.classList.add('visible');
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove('visible');
             }
+
+            // Remove active class from all links
+            Array.from(navLinks).forEach(link => {
+                link.classList.remove('active');
+            });
         }
 
         window.addEventListener('scroll', setActiveLink);
@@ -474,6 +465,17 @@
                         top: targetElement.offsetTop - navbar.offsetHeight,
                         behavior: 'smooth'
                     });
+
+                    // Add active class to clicked link
+                    Array.from(navLinks).forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // Remove active class after a short delay
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 300);
                 }
             });
         });
@@ -544,4 +546,4 @@
         window.addEventListener('orientationchange', adjustFontSizes);
     </script>
 </body>
-</html>   
+</html>
