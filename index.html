@@ -268,18 +268,25 @@
         and (min-device-width: 375px) 
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
-            .subtitle, p, ul {
-                font-size: 1rem !important;
+            .subtitle, p, ul, .info-box .subtitle {
+                font-size: 0.9rem !important;
             }
             .section {
                 padding: 1rem;
                 margin-bottom: 1rem;
             }
             h2 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
-            .info-box .subtitle {
-                font-size: 1rem !important;
+            .nav-menu a {
+                font-size: 0.8rem;
+            }
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
+            }
+            .container {
+                padding: 1rem;
             }
         }
         /* Ajuste para pantallas grandes (computadoras) */
@@ -356,7 +363,6 @@
                     <li>Utilizing key administrative tools such as Active Directory Domain Services (AD DS), Domain Name System (DNS), Dynamic Host Configuration Protocol (DHCP), and Internet Information Services (IIS)</li>
                 </ul>
                 <p>This project demonstrated my ability to configure and manage complex server environments, showcasing skills in network administration, user management, and web hosting within a Windows Server ecosystem.</p>
-            </div>
             <div>
                 <h3>Event Organizer Application (Programming Languages)</h3>
                 <p>We developed a comprehensive mobile application using Flutter and Firebase, designed to streamline event planning and management. Key features include:</p>
@@ -564,28 +570,20 @@
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
                 const infoBoxSubtitles = document.querySelectorAll('.info-box .subtitle');
+                const isIPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream;
+                
                 if (window.innerWidth > window.innerHeight) {
                     // Landscape mode
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.85rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '0.85rem';
-                    });
-                    infoBoxSubtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.85rem';
-                    });
+                    const fontSize = isIPhone ? '0.8rem' : '0.85rem';
+                    subtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
+                    content.forEach(item => item.style.fontSize = fontSize);
+                    infoBoxSubtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
                 } else {
                     // Portrait mode
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '1rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '1rem';
-                    });
-                    infoBoxSubtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '1rem';
-                    });
+                    const fontSize = isIPhone ? '0.9rem' : '1rem';
+                    subtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
+                    content.forEach(item => item.style.fontSize = fontSize);
+                    infoBoxSubtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
                 }
             }
 
