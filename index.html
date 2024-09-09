@@ -19,13 +19,12 @@
             color: #ffffff;
             line-height: 1.6;
             background: linear-gradient(135deg, 
-                #000033, #000066, #0000aa, #4444ff,
-                #006aff, #380061,
-                #4b0082, #6a0dad, #9a40db, #8b008b,
-                #ff8c00, #f2b84e, #ff7f50,
-                #ff4500, #ff6347,
-                #ff0000, #8b0000, #4b0000);
-            background-size: 1000% 1000%;
+                #000033, #000066, #000088, #0000aa,
+                #000088, #000066,
+                #330033, #660066, #990099,
+                #660033, #990033,
+                #660000, #330000);
+            background-size: 400% 400%;
             animation: gradientBG 30s ease infinite;
             transition: background 0.3s ease;
             scroll-behavior: smooth;
@@ -215,6 +214,24 @@
             margin-top: 0.5rem;
             box-shadow: none;
         }
+        .sun-rays {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .sun-ray {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform-origin: top left;
+        }
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -253,14 +270,17 @@
         }
         @media (orientation: landscape) and (max-width: 1024px) {
             .subtitle, p, ul {
-                font-size: 0.85rem;
+                font-size: 1rem;
             }
             h2 {
-                font-size: 1.1rem;
+                font-size: 1.5rem;
             }
             .section {
-                padding: 0.8rem;
-                margin-bottom: 1rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .container {
+                max-width: 90%;
             }
         }
         /* Estilos específicos para iPhone */
@@ -269,14 +289,17 @@
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
             .subtitle, p, ul {
-                font-size: 0.85rem;
+                font-size: 1rem;
             }
             .section {
-                padding: 1rem;
-                margin-bottom: 1rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
             }
             h2 {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
+            }
+            .container {
+                max-width: 90%;
             }
         }
         /* Ajuste para pantallas grandes (computadoras) */
@@ -296,6 +319,8 @@
             <li><a href="#goals">Professional Goals</a></li>
         </ul>
     </nav>
+
+    <div class="sun-rays" id="sunRays"></div>
 
     <div class="container">
         <header class="header" id="top">
@@ -560,28 +585,35 @@
             function adjustFontSizes() {
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
-                if (window.innerWidth > window.innerHeight) {
-                    // Landscape mode
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.85rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '0.85rem';
-                    });
-                } else {
-                    // Portrait mode
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.9rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '0.9rem';
-                    });
-                }
+                subtitles.forEach(subtitle => {
+                    subtitle.style.fontSize = '1rem';
+                });
+                content.forEach(item => {
+                    item.style.fontSize = '1rem';
+                });
             }
 
             adjustFontSizes();
             window.addEventListener('resize', adjustFontSizes);
             window.addEventListener('orientationchange', adjustFontSizes);
+
+            // Crear rayos de sol
+            function createSunRays() {
+                const sunRays = document.getElementById('sunRays');
+                const numRays = 20;
+                const angleIncrement = 180 / (numRays - 1);
+
+                for (let i = 0; i < numRays; i++) {
+                    const ray = document.createElement('div');
+                    ray.className = 'sun-ray';
+                    const angle = i * angleIncrement;
+                    ray.style.transform = `rotate(${angle}deg)`;
+                    ray.style.opacity = 0.1 + (i / numRays) * 0.1;
+                    sunRays.appendChild(ray);
+                }
+            }
+
+            createSunRays();
 
             // Prevenir la inspección del código
             document.onkeydown = function(e) {
