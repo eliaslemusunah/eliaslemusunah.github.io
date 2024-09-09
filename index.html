@@ -268,62 +268,15 @@
         and (min-device-width: 375px) 
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
-            .subtitle, p, ul, .info-box .subtitle {
-                font-size: 0.9rem !important;
+            .subtitle, p, ul {
+                font-size: 0.85rem;
             }
             .section {
                 padding: 1rem;
                 margin-bottom: 1rem;
             }
             h2 {
-                font-size: 1.1rem;
-            }
-            .nav-menu a {
-                font-size: 0.8rem;
-            }
-            .profile-image-container {
-                width: 200px;
-                height: 200px;
-            }
-            .container {
-                padding: 1rem;
-            }
-            /* Estilos específicos para iPhone en modo horizontal */
-            @media (orientation: landscape) {
-                .container {
-                    max-width: 100%;
-                    padding: 0.5rem;
-                }
-                .header {
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: flex-start;
-                    padding-top: 20px;
-                }
-                .profile-image-container {
-                    width: 150px;
-                    height: 150px;
-                    margin-right: 1rem;
-                }
-                h1 {
-                    font-size: 1.5rem;
-                }
-                .subtitle, p, ul, .info-box .subtitle {
-                    font-size: 0.75rem !important;
-                }
-                .section {
-                    padding: 0.75rem;
-                    margin-bottom: 1rem;
-                }
-                h2 {
-                    font-size: 1rem;
-                    margin-top: 1rem;
-                    margin-bottom: 0.5rem;
-                }
-                .nav-menu a {
-                    font-size: 0.7rem;
-                    padding: 0.2rem 0.5rem;
-                }
+                font-size: 1.2rem;
             }
         }
         /* Ajuste para pantallas grandes (computadoras) */
@@ -607,43 +560,21 @@
             function adjustFontSizes() {
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
-                const infoBoxSubtitles = document.querySelectorAll('.info-box .subtitle');
-                const isIPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream;
-                
                 if (window.innerWidth > window.innerHeight) {
                     // Landscape mode
-                    const fontSize = isIPhone ? '0.75rem' : '0.85rem';
-                    subtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
-                    content.forEach(item => item.style.fontSize = fontSize);
-                    infoBoxSubtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '0.85rem';
+                    });
+                    content.forEach(item => {
+                        item.style.fontSize = '0.85rem';
+                    });
                 } else {
                     // Portrait mode
-                    const fontSize = isIPhone ? '0.9rem' : '1rem';
-                    subtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
-                    content.forEach(item => item.style.fontSize = fontSize);
-                    infoBoxSubtitles.forEach(subtitle => subtitle.style.fontSize = fontSize);
-                }
-
-                // Ajustar el tamaño de las fichas en iPhone modo horizontal
-                if (isIPhone && window.innerWidth > window.innerHeight) {
-                    document.querySelectorAll('.section').forEach(section => {
-                        section.style.padding = '0.75rem';
-                        section.style.marginBottom = '0.75rem';
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '0.9rem';
                     });
-                    document.querySelectorAll('h2').forEach(h2 => {
-                        h2.style.fontSize = '1rem';
-                        h2.style.marginTop = '0.75rem';
-                        h2.style.marginBottom = '0.5rem';
-                    });
-                } else {
-                    document.querySelectorAll('.section').forEach(section => {
-                        section.style.padding = '';
-                        section.style.marginBottom = '';
-                    });
-                    document.querySelectorAll('h2').forEach(h2 => {
-                        h2.style.fontSize = '';
-                        h2.style.marginTop = '';
-                        h2.style.marginBottom = '';
+                    content.forEach(item => {
+                        item.style.fontSize = '0.9rem';
                     });
                 }
             }
