@@ -269,23 +269,26 @@
         }
         @media (orientation: landscape) {
             .subtitle, p, ul {
-                font-size: 1rem !important;
+                font-size: 0.9rem !important;
             }
             h2 {
-                font-size: 1.5rem !important;
+                font-size: 1.3rem !important;
             }
             .section {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
             }
             .container {
                 max-width: 90%;
             }
             h1 {
-                font-size: 2.2rem !important;
+                font-size: 1.8rem !important;
             }
             .nav-menu a {
-                font-size: 1rem !important;
+                font-size: 0.8rem !important;
+            }
+            .info-box .subtitle {
+                font-size: 0.9rem !important;
             }
         }
         @media only screen 
@@ -293,23 +296,26 @@
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
             .subtitle, p, ul {
-                font-size: 1rem !important;
+                font-size: 0.9rem !important;
             }
             .section {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
             }
             h2 {
-                font-size: 1.5rem !important;
+                font-size: 1.3rem !important;
             }
             .container {
                 max-width: 90%;
             }
             h1 {
-                font-size: 2.2rem !important;
+                font-size: 1.8rem !important;
             }
             .nav-menu a {
-                font-size: 1rem !important;
+                font-size: 0.8rem !important;
+            }
+            .info-box .subtitle {
+                font-size: 0.9rem !important;
             }
         }
         @media (min-width: 1025px) {
@@ -604,10 +610,10 @@
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
                 subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '1rem';
+                    subtitle.style.fontSize = '0.9rem';
                 });
                 content.forEach(item => {
-                    item.style.fontSize = '1rem';
+                    item.style.fontSize = '0.9rem';
                 });
             }
 
