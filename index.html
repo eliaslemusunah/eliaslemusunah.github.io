@@ -140,7 +140,7 @@
             background: linear-gradient(to right, #03a9f4, #00ff00);
             height: 100%;
             width: 0;
-            transition: width 1s ease-in-out;
+            transition: width 0.5s ease-out;
             position: relative;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -244,7 +244,7 @@
                 font-size: 2rem;
             }
             .subtitle, p, ul {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             h2 {
                 font-size: 1.3rem;
@@ -269,39 +269,46 @@
         }
         @media (orientation: landscape) and (max-width: 1024px) {
             .subtitle, p, ul {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             .section {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
             }
             .container {
                 max-width: 90%;
+                padding: 1rem;
+            }
+            .profile-image-container {
+                width: 150px;
+                height: 150px;
+            }
+            h1 {
+                font-size: 1.8rem;
             }
         }
-        /* Estilos específicos para iPhone */
         @media only screen 
         and (min-device-width: 375px) 
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
             .subtitle, p, ul {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             .section {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
             }
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             .container {
                 max-width: 90%;
+                padding: 1rem;
             }
         }
-        /* Ajuste para pantallas grandes (computadoras) */
         @media (min-width: 1025px) {
             .subtitle, p, ul {
                 font-size: 1rem;
@@ -442,20 +449,17 @@
             function animateProgress() {
                 const progress = document.querySelector('.progress');
                 if (!progress) return;
-                let width = 0;
                 const targetWidth = 59;
                 progress.style.display = 'flex';
-                const interval = setInterval(() => {
-                    if (width >= targetWidth) {
-                        clearInterval(interval);
-                        progressFilled = true;
-                        progress.textContent = '59%';
-                    } else {
-                        width++;
-                        progress.style.width = width + '%';
-                        progress.textContent = Math.round(width) + '%';
-                    }
-                }, 20);
+                progress.style.width = '0%';
+                progress.textContent = '0%';
+                
+                requestAnimationFrame(() => {
+                    progress.style.width = targetWidth + '%';
+                    progress.textContent = targetWidth + '%';
+                });
+
+                progressFilled = true;
             }
 
             function resetProgress() {
@@ -468,7 +472,6 @@
                     }
                 }
             }
-
             const profileImage = document.querySelector('.profile-image-inner');
 
             function handleOrientation(event) {
@@ -584,12 +587,30 @@
             function adjustFontSizes() {
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
-                subtitles.forEach(subtitle => {
-                    subtitle.style.fontSize = '1rem';
-                });
-                content.forEach(item => {
-                    item.style.fontSize = '1rem';
-                });
+                const h2Elements = document.querySelectorAll('h2');
+                const isLandscape = window.innerWidth > window.innerHeight;
+                
+                if (window.innerWidth <= 768 || isLandscape) {
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '0.9rem';
+                    });
+                    content.forEach(item => {
+                        item.style.fontSize = '0.9rem';
+                    });
+                    h2Elements.forEach(h2 => {
+                        h2.style.fontSize = '1.3rem';
+                    });
+                } else {
+                    subtitles.forEach(subtitle => {
+                        subtitle.style.fontSize = '1rem';
+                    });
+                    content.forEach(item => {
+                        item.style.fontSize = '1rem';
+                    });
+                    h2Elements.forEach(h2 => {
+                        h2.style.fontSize = '1.5rem';
+                    });
+                }
             }
 
             adjustFontSizes();
