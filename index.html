@@ -140,7 +140,7 @@
             background: linear-gradient(to right, #03a9f4, #00ff00);
             height: 100%;
             width: 0;
-            transition: width 0.5s ease-out;
+            transition: width 1s ease-in-out;
             position: relative;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -244,7 +244,7 @@
                 font-size: 2rem;
             }
             .subtitle, p, ul {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             h2 {
                 font-size: 1.3rem;
@@ -267,27 +267,25 @@
                 padding: 1rem;
             }
         }
-        @media (orientation: landscape) and (max-width: 1024px) {
+        @media (orientation: landscape) {
             .subtitle, p, ul {
-                font-size: 0.9rem;
+                font-size: 1rem !important;
             }
             h2 {
-                font-size: 1.3rem;
+                font-size: 1.5rem !important;
             }
             .section {
-                padding: 1.2rem;
-                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
             }
             .container {
                 max-width: 90%;
-                padding: 1rem;
-            }
-            .profile-image-container {
-                width: 150px;
-                height: 150px;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.2rem !important;
+            }
+            .nav-menu a {
+                font-size: 1rem !important;
             }
         }
         @media only screen 
@@ -295,23 +293,37 @@
         and (max-device-width: 812px) 
         and (-webkit-min-device-pixel-ratio: 3) {
             .subtitle, p, ul {
-                font-size: 0.9rem;
+                font-size: 1rem !important;
             }
             .section {
-                padding: 1.2rem;
-                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
             }
             h2 {
-                font-size: 1.3rem;
+                font-size: 1.5rem !important;
             }
             .container {
                 max-width: 90%;
-                padding: 1rem;
+            }
+            h1 {
+                font-size: 2.2rem !important;
+            }
+            .nav-menu a {
+                font-size: 1rem !important;
             }
         }
         @media (min-width: 1025px) {
             .subtitle, p, ul {
-                font-size: 1rem;
+                font-size: 1rem !important;
+            }
+            h1 {
+                font-size: 2.5rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            .nav-menu a {
+                font-size: 1rem !important;
             }
         }
     </style>
@@ -449,17 +461,20 @@
             function animateProgress() {
                 const progress = document.querySelector('.progress');
                 if (!progress) return;
+                let width = 0;
                 const targetWidth = 59;
                 progress.style.display = 'flex';
-                progress.style.width = '0%';
-                progress.textContent = '0%';
-                
-                requestAnimationFrame(() => {
-                    progress.style.width = targetWidth + '%';
-                    progress.textContent = targetWidth + '%';
-                });
-
-                progressFilled = true;
+                const interval = setInterval(() => {
+                    if (width >= targetWidth) {
+                        clearInterval(interval);
+                        progressFilled = true;
+                        progress.textContent = '59%';
+                    } else {
+                        width++;
+                        progress.style.width = width + '%';
+                        progress.textContent = Math.round(width) + '%';
+                    }
+                }, 20);
             }
 
             function resetProgress() {
@@ -472,6 +487,7 @@
                     }
                 }
             }
+
             const profileImage = document.querySelector('.profile-image-inner');
 
             function handleOrientation(event) {
@@ -587,30 +603,12 @@
             function adjustFontSizes() {
                 const subtitles = document.querySelectorAll('.subtitle');
                 const content = document.querySelectorAll('p, ul');
-                const h2Elements = document.querySelectorAll('h2');
-                const isLandscape = window.innerWidth > window.innerHeight;
-                
-                if (window.innerWidth <= 768 || isLandscape) {
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '0.9rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '0.9rem';
-                    });
-                    h2Elements.forEach(h2 => {
-                        h2.style.fontSize = '1.3rem';
-                    });
-                } else {
-                    subtitles.forEach(subtitle => {
-                        subtitle.style.fontSize = '1rem';
-                    });
-                    content.forEach(item => {
-                        item.style.fontSize = '1rem';
-                    });
-                    h2Elements.forEach(h2 => {
-                        h2.style.fontSize = '1.5rem';
-                    });
-                }
+                subtitles.forEach(subtitle => {
+                    subtitle.style.fontSize = '1rem';
+                });
+                content.forEach(item => {
+                    item.style.fontSize = '1rem';
+                });
             }
 
             adjustFontSizes();
